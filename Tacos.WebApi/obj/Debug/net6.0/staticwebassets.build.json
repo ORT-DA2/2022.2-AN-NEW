@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JNJAauSMANaQjjiP5Ki0nSKpXNFeGadZNfK64cMGMow=",
+  "Source": "Tacos.WebApi",
+  "BasePath": "_content/Tacos.WebApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
