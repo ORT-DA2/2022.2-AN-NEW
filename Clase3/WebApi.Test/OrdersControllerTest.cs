@@ -1,6 +1,8 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain;
+using IBusinessLogic;
+using WebAPI;
 using Moq;
 
 namespace WebApi.Test;
@@ -17,10 +19,22 @@ public class OrdersControllerTest
             Address = "Juan Gomez 3878",
             PutchaseNumber = 1,
             Price = 100,
+        };//1
+
+        OrderBasicInfoModel orderModel = new OrderBasicInfoModel()
+        {
+            Id = 1,
             DeliveryDateTima = DateTime.Now.AddHours(1)
-        };
+        };//1
 
-        var mock = new Mock<IStudentLogic>(MockBehavior.Strict); // 2
+        var mock = new Mock<IOrderService>(MockBehavior.Strict);
+        mock.Setup(o => o.Create(It.IsAny<Order>())).Returns(orderModel); //1
+    	var controller = new OrderController(mock.Object);
+	    var result = controller.Post(order); 
+    	var createdResult = result as CreatedAtRouteResult; 
+	    var model = createdResult.Value as Order; 
 
+        mock.VerifyAll();//2
+        Assert.AreEqual(new OrderBasicInfoModel(order), model);//3
     }
 }
