@@ -35,10 +35,22 @@ public class OrdersControllerTest
     	var controller = new OrderController(mock.Object);
 	    var result = controller.Add(order); 
     	var createdResult = result as CreatedAtRouteResult; 
-        Console.WriteLine(createdResult.Value);
 	    var model = createdResult.Value as OrderBasicInfoModel; 
 
         mock.VerifyAll();//2
         Assert.IsTrue(createdOrder.Id == model.Id && createdOrder.DeliveryDateTime == model.DeliveryDateTime);//3
+    }
+    
+    [TestMethod]
+    public void CreateInvalidOrderBadRequestTest()
+    {
+        var mock = new Mock<IOrderService>(MockBehavior.Strict);
+        mock.Setup(m => m.Create(null)).Throws(new ArgumentException());
+        var controller = new OrderController(mock.Object);
+
+        var result = controller.Add(null);
+
+        mock.VerifyAll();
+        Assert.IsInstanceOfType(result, typeof(BadRequestResult));
     }
 }

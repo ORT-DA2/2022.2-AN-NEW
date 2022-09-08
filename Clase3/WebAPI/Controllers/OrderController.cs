@@ -26,11 +26,18 @@ public class OrderController : ControllerBase
     [HttpPost]
     public IActionResult Add([FromBody] Order order)
     {
-        Order createdOrder = _orderService.Create(order);
-        return CreatedAtRoute("AddOrder", new OrderBasicInfoModel()
+        try
         {
+            Order createdOrder = _orderService.Create(order);
+            return CreatedAtRoute("AddOrder", new OrderBasicInfoModel()
+            {
                 Id = createdOrder.Id,
                 DeliveryDateTime = createdOrder.DeliveryDateTima
-        });
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest();
+        }
     }
 }
