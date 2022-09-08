@@ -1,4 +1,4 @@
-namespace WebAPI.Models.Out;
+namespace Models.Out;
 
 public class OrderBasicInfoModel
 {

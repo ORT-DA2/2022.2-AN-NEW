@@ -5,7 +5,7 @@ using IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WebAPI.Controllers;
-using WebAPI.Models.Out;
+using Models.Out;
 
 namespace WebApi.Test;
 
@@ -21,27 +21,24 @@ public class OrdersControllerTest
             Address = "Juan Gomez 3878",
             PutchaseNumber = 1,
             Price = 100,
+            DeliveryDateTima = DateTime.Now.AddHours(1)
         };//1
 
-        OrderBasicInfoModel orderModel = new OrderBasicInfoModel()
-        {
-            Id = 1,
-            DeliveryDateTime = DateTime.Now.AddHours(1)
-        };//1
-
-        var mock = new Mock<IOrderService>(MockBehavior.Strict);
-        mock.Setup(o => o.Create(It.IsAny<Order>())).Returns(orderModel); //1
-    	var controller = new OrderController(mock.Object);
-	    var result = controller.Add(order); 
-    	var createdResult = result as CreatedAtRouteResult; 
-	    var model = createdResult.Value as OrderBasicInfoModel; 
-
-        mock.VerifyAll();//2
-        Assert.AreEqual(new OrderBasicInfoModel()
+        OrderBasicInfoModel createdOrder = new OrderBasicInfoModel()
         {
             Id = order.Id,
             DeliveryDateTime = order.DeliveryDateTima
-        },
-            model);//3
+        };//1
+
+        var mock = new Mock<IOrderService>(MockBehavior.Strict);
+        mock.Setup(o => o.Create(It.IsAny<Order>())).Returns(order); //1
+    	var controller = new OrderController(mock.Object);
+	    var result = controller.Add(order); 
+    	var createdResult = result as CreatedAtRouteResult; 
+        Console.WriteLine(createdResult.Value);
+	    var model = createdResult.Value as OrderBasicInfoModel; 
+
+        mock.VerifyAll();//2
+        Assert.IsTrue(createdOrder.Id == model.Id && createdOrder.DeliveryDateTime == model.DeliveryDateTime);//3
     }
 }

@@ -11,10 +11,11 @@ public class OrderRepository: IOrderRepository
     {
         _context = context;
     }
-    public void Add(Order entity)
+    public Order Add(Order entity)
     {
         _context.Orders.Add(entity);
         _context.SaveChanges();
+        return entity;
     }
 
     public void Delete(Order entity)

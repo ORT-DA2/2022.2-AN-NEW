@@ -1,6 +1,7 @@
 using Domain;
 using IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
+using Models.Out;
 
 namespace WebAPI.Controllers;
 
@@ -25,7 +26,11 @@ public class OrderController : ControllerBase
     [HttpPost]
     public IActionResult Add([FromBody] Order order)
     {
-        _orderService.Create(order);
-        return Created("", order);
+        Order createdOrder = _orderService.Create(order);
+        return CreatedAtRoute("AddOrder", new OrderBasicInfoModel()
+        {
+                Id = createdOrder.Id,
+                DeliveryDateTime = createdOrder.DeliveryDateTima
+        });
     }
 }
