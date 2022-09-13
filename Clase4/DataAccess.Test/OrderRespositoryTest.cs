@@ -41,5 +41,7 @@ public class OrderRespositoryTest
 	    var repository = new OrderRepository(context);
 
 	    var result = repository.GetAll();  
+
+        Assert.IsTrue(ordersToReturn.SequenceEqual(result));
     }
 }
