@@ -1,6 +1,7 @@
-﻿namespace Domain;
+﻿using System;
+namespace Domain;
 
-public class Order
+public class Order: IEqualityComparer<Order>
 {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -9,15 +10,17 @@ public class Order
     public int Price { get; set; }
     public DateTime DeliveryDateTima { get; set; }
 
-    public override bool Equal(Object obj)
-	{
-		var result = false;
-		
-		if(result is Order order)
-		{
-			result = this.Id == order.Id && this.Name.Equals(order.Name);
-		}
-		
-		return result;	
-	}
+    public bool Equals(Order x, Order y)
+    {
+	    if (ReferenceEquals(x, y)) return true;
+	    if (ReferenceEquals(x, null)) return false;
+	    if (ReferenceEquals(y, null)) return false;
+	    if (x.GetType() != y.GetType()) return false;
+	    return x.Id == y.Id && x.Name == y.Name;
+    }
+
+    public int GetHashCode(Order obj)
+    {
+	    return HashCode.Combine(obj.Id, obj.Name);
+    }
 }
