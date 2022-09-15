@@ -34,14 +34,16 @@ public class OrderRespositoryTest
                 DeliveryDateTima = DateTime.Now.AddHours(1)
             }
         };       
-        var options = new DbContextOptionsBuilder<ContextDb>()
-										.UseInMemoryDatabase(databaseName: "TacosDB").Options;
-        var context = new ContextDb(options);
-	    ordersToReturn.ForEach(m => context.Add(m));
-	    context.SaveChanges();
-	    var repository = new OrderRepository(context);
+        var builder = new  DbContextOptionsBuilder<ContextDb>();
+		builder.UseInMemoryDatabase("TacosDBTest");
 
-	    var result = repository.GetAll();  
+        var options = builder.Options;
+        var _context = new ContextDb(options);
+        var repository = new OrderRepository(_context);
+        ordersToReturn.ForEach(m => _context.Orders.Add(m));
+        _context.SaveChanges();
+
+        var result = repository.GetAll();  
 
         Assert.IsTrue(ordersToReturn.SequenceEqual(result));
     }
