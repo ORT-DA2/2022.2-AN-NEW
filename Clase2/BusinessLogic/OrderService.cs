@@ -15,6 +15,8 @@ public class OrderService : IOrderService
     
     public void Create(Order order)
     {
+        if (order.Name == "")
+            throw new FormatException();
         _repository.Add(order);
     }
 
