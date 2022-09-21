@@ -33,4 +33,20 @@ public class OrderService : IOrderService
     {
         return _repository.GetAll();
     }
+
+    public IQueryable<Order> GetFilteredOrders(int year ,int priceLowerBound, int priceUpperBound)
+    {
+        Expression<Func<Order, bool>> expression = order => 
+            order.DeliveryDateTime.Year == year && order.price >= priceLowerBound && order.price >= priceUpperBound;
+        return _repository.GetFilteredOrders(expression);
+    }
+
+    public IQueryable<Order> GetAllNames()
+	{
+		Expression<Func<Order, string>> expression = order => order.Name;
+		
+		IQueryable<Order> orders = _orderRepository.GetAllNames(expression);
+		
+		return orders;
+	}
 }

@@ -9,4 +9,7 @@ public interface IOrderService
     void Delete(Order order);
     IQueryable<Order> GetAll();
 
+    IQueryable<Order> GetFilteredOrders(int year ,int priceLowerBound, int priceUpperBound);
+
+    IQueryable<Order> GetAllNames();
 }

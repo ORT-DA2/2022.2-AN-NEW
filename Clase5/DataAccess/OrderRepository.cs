@@ -32,4 +32,18 @@ public class OrderRepository: IOrderRepository
     {
         return _context.Orders;
     }
+
+    public IQueryable<Order> GetFilteredOrders(Expression<Func<Order, bool>> expression)
+    {
+        IEnumerable<Order> orders = _context.Orders.Where(expression);
+
+        return orders;
+    }
+
+    public IQueryable<Order> GetAllNames(Expression<Func<Order, string>> expression)
+    {
+	    IQueryable<Order> orders = _context.Orders.Select(expression);
+    
+	    return orders;
+    }
 }
