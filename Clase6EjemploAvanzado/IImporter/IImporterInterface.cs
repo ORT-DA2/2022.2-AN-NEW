@@ -1,7 +1,7 @@
 ﻿using Domain;
 
 namespace IImporter;
-public interface IImporter
+public interface IImporterInterface
 {
     string GetName();
 

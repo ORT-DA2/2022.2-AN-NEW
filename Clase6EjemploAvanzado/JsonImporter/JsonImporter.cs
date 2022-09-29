@@ -5,7 +5,7 @@ using IImporter;
 namespace JsonImporter;
 // Este proyecto podria estar en otra solucion tranquilamente, solo necesito el dll
 // que resulta de compilar el proyecto para ponerlo en la carpeta Importers
-public class JsonImporter : IImporter
+public class JsonImporter : IImporterInterface
 {
     public string GetName()
     {
@@ -13,7 +13,7 @@ public class JsonImporter : IImporter
     }
 
     // Aca obviamente va a leer de un JSON, no devolver algo hardcodeado
-    public List<Movie> ImportOrders()
+    public List<Order> ImportOrders()
     {
         List<Order> ordersToReturn = new List<Order>()
         {
@@ -35,6 +35,7 @@ public class JsonImporter : IImporter
                 Price = 150,
                 DeliveryDateTima = DateTime.Now.AddHours(1)
             }
-        };    
+        };
+        return ordersToReturn;
     }
 }
