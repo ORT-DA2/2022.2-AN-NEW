@@ -10,10 +10,12 @@ namespace WebAPI.Controllers;
 public class OrderController : ControllerBase
 {
     private IOrderService _orderService;
+    private readonly IImporterManager _importerManager;
 
-    public OrderController(IOrderService orderService)
+    public OrderController(IOrderService orderService, IImporterManager importerManager)
     {
         _orderService = orderService;
+        _importerManager = importerManager;
     }
 
     [HttpGet]
@@ -39,5 +41,24 @@ public class OrderController : ControllerBase
         {
             return BadRequest();
         }
+    }
+
+    // TODO: Moverlo a otro controller
+    [HttpGet("importers")]
+    public IActionResult GetImporters()
+    {
+        List<string> retrievedImporters = _importerManager.GetAllImporters();
+        return Ok(retrievedImporters);
+    }
+
+    [HttpPost("import")]
+    public IActionResult ImportMovies([FromBody] string importerName)
+    {
+        List<OrderBasicInfoModel> importedOrders = _importerManager.ImportOrders(importerName).Select(order => new OrderBasicInfoModel()
+            {
+                Id = order.Id,
+                DeliveryDateTime = order.DeliveryDateTima
+            }).ToList();
+        return Ok(importedOrders);
     }
 }
