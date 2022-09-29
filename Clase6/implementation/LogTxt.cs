@@ -16,7 +16,8 @@ namespace implementation
         public void Log(string toSave, string route)
         {
             string text = "Campo 1: " + toSave.ToString();
-            System.IO.File.WriteAllText(@route, text);
+            Console.WriteLine($"Guarde texto: {text} en {toSave}");
+            // System.IO.File.WriteAllText(@route, text);
         }
     }
 }
