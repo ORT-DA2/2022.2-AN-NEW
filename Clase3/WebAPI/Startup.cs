@@ -3,7 +3,6 @@ using DataAccess;
 using IBusinessLogic;
 using IDataAccess;
 using Microsoft.EntityFrameworkCore;
-using WebAPI.Filters;
 
 namespace WebAPI;
 
@@ -26,10 +25,6 @@ public class Startup
             services.AddControllers();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IGuidService, GuidService>();
-            services.AddScoped<FilterAuthentication>();
             string directory = System.IO.Directory.GetCurrentDirectory();
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(directory)

@@ -1,12 +1,11 @@
 using Domain;
 using IBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
-using WebAPI.Filters;
+using Models.Out;
 
 namespace WebAPI.Controllers;
 
 [ApiController]
-[ExceptionFilter]
 [Route("api/Orders")]
 public class OrderController : ControllerBase
 {
@@ -25,11 +24,20 @@ public class OrderController : ControllerBase
     }
 
     [HttpPost]
-    [ServiceFilter(typeof(FilterAuthentication))]
-  //  [ProtectFilter(RoleType.Admin)]
     public IActionResult Add([FromBody] Order order)
     {
-        _orderService.Create(order);
-        return Created("", order);
+        try
+        {
+            Order createdOrder = _orderService.Create(order);
+            return CreatedAtRoute("AddOrder", new OrderBasicInfoModel()
+            {
+                Id = createdOrder.Id,
+                DeliveryDateTime = createdOrder.DeliveryDateTima
+            });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest();
+        }
     }
 }

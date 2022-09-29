@@ -13,11 +13,10 @@ public class OrderService : IOrderService
         _repository = orderRepository;
     }
     
-    public void Create(Order order)
+    public Order Create(Order order)
     {
-        if (order.Name == "")
-            throw new FormatException();
-        _repository.Add(order);
+        Order createdOrder = _repository.Add(order);
+        return createdOrder;
     }
 
     public void Update(Order order)
