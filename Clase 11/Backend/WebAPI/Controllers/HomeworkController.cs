@@ -19,7 +19,7 @@ public class HomeworkController : ControllerBase
         {
             new Homework() 
             {
-                Id = 1,
+                Id = "1",
                 Description = "Una tarea",
                 DueDate = new DateTime(),
                 Score = 2,
@@ -36,7 +36,7 @@ public class HomeworkController : ControllerBase
             },
             new Homework() 
             {
-                Id = 2,
+                Id = "2",
                 Description = "Otra tarea",
                 DueDate = new DateTime(),
                 Score = 3,
