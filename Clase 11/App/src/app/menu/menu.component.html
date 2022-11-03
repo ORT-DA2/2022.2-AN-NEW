@@ -1,0 +1,12 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    {{ pageTitle }}
+  </div>
+  <tr>
+    <a [routerLink]="['/homeworks']"> {{ "Homeworks List" | uppercase }}</a>
+  </tr>
+  <tr>
+    <a [routerLink]="['/login']"> {{ "Login" | uppercase }}</a>
+  </tr>
+</div>
+<router-outlet></router-outlet>
