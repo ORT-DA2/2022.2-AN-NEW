@@ -5,7 +5,11 @@
   "projects": {
     "Clase7": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:service": {
+          "path": "src/app/core/http-services"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
