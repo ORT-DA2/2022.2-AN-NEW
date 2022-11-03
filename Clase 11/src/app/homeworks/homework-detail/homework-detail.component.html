@@ -1,0 +1,69 @@
+
+<div class='panel panel-primary'>
+  <div class='panel-heading'>
+    {{pageTitle}}
+  </div>
+
+  <div class='panel-body'>
+
+
+    <!--Tabla de tareas -->
+    <div class='table-responsive'>
+      <table class='table' >
+        <!--Cabezal de la tabla -->
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Description</th>
+          <th>DueDate</th>
+          <th>Score</th>
+          <th>Raitng</th>
+        </tr>
+        </thead>
+        <!--Cuerpo de la tabla-->
+        <tbody>
+          <td>{{aHomework?.id}}</td>
+          <td>{{aHomework?.description | uppercase}}</td>
+          <td>{{aHomework?.dueDate}}</td>
+          <td>{{aHomework?.score}}</td>
+            <div>
+                  <table>
+                    <thead>
+                    <tr>
+                      <th>Problem</th>
+                      <th>Score</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor='let aExercise of aHomework?.exercises'>
+                      <td>{{aExercise.problem}}</td>
+                      <td>{{aExercise.score}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <table>
+                  <thead>
+                  <tr>
+                    <th>Problem</th>
+                    <th>Score</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor='let aExercise of aHomework?.exercises'>
+                    <td>{{aExercise.problem}}</td>
+                    <td>{{aExercise.score}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel-footer">
+  <a class="btn btn-default" (click)="onBack()" style="width:80px">
+    <i class="glyphicon glyphicon-chevron-left"></i> Back
+  </a>
+</div>
