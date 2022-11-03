@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { HomeworksModule } from './homeworks/homeworks.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APIInterceptor } from './core/interceptors/api-interceptor';
+import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, FormsModule, HomeworksModule],
+  declarations: [AppComponent, LoginComponent],
+  imports: [AppRoutingModule, BrowserModule, FormsModule, HomeworksModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
