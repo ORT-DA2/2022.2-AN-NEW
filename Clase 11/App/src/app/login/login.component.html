@@ -1,1 +1,3 @@
-<p>login works!</p>
+<button (click)="isLoggedIn() ? logout() : login()" class="btn btn-primary">
+  {{ isLoggedIn() ? "Logout" : "Login" }}
+</button>
