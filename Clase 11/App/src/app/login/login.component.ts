@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../core/http-services/users/users.service';
 
 @Component({
@@ -7,7 +8,11 @@ import { UsersService } from '../core/http-services/users/users.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private _userService: UsersService) {}
+  constructor(
+    private _userService: UsersService,
+    private _route: ActivatedRoute,
+    private _router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -21,6 +26,15 @@ export class LoginComponent implements OnInit {
       this.saveUserInfo(
         JSON.stringify({ email: userInfo.email, token: userInfo.token })
       );
+      let urlToGo;
+      this._route?.queryParams.forEach((value: any) => {
+        if (value?.returnUrl) {
+          urlToGo = value?.returnUrl;
+        }
+      });
+      if (urlToGo) {
+        this._router.navigate([urlToGo]);
+      }
     });
   }
 

@@ -9,9 +9,19 @@ import { MenuComponent } from '../menu/menu.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
 import { HomeworksService } from '../core/http-services/homeworks/homeworks.service';
+import { AuthGuard } from '../core/guards/auth-guards';
+
 const rootes: Routes = [
-  { path: 'homeworks', component: HomeworksListComponent },
-  { path: 'homeworks/:id', component: HomeworkDetailComponent },
+  {
+    path: 'homeworks',
+    component: HomeworksListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'homeworks/:id',
+    component: HomeworkDetailComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 @NgModule({
   declarations: [

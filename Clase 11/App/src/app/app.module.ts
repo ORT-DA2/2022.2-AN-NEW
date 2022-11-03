@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APIInterceptor } from './core/interceptors/api-interceptor';
 import { LoginModule } from './login/login.module';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthGuard } from './core/guards/auth-guards';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
     LoginModule,
   ],
   providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
