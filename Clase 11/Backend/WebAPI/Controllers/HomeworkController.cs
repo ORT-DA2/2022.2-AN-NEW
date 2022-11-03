@@ -1,12 +1,13 @@
 using System;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using WebAPI.Filters;
 
 namespace WebAPI.Controllers;
 
 [ApiController]
-[Route("api/Homeworks")]
+[Route("api/homeworks")]
 [FilterExceptions]
 public class HomeworkController : ControllerBase
 {
